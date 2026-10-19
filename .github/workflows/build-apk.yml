@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
@@ -21,11 +21,12 @@ jobs:
         target: apk
         runner-python-version: "3.12"
         bundled-python-version: "3.12"
-        project: "app32bd"
-        product: "32-бд"
+        # Передаём дополнительные аргументы в flet build
+        extra-args: '--project "app32bd" --product "32-бд" --android-extract-packages flet'
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-release
         path: build/apk
+        if-no-files-found: error
