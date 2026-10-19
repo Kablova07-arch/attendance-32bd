@@ -1,0 +1,28 @@
+name: Build Flet APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build APK
+      uses: flet-dev/flet-build-action@v1
+      with:
+        target: apk
+        runner-python-version: "3.12"
+        bundled-python-version: "3.12"
+        project: "app32bd"
+        product: "32-бд"
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release
+        path: build/apk
